@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
+    public PlayerMovement player;
+    private int scene = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -16,6 +17,9 @@ public class Portal : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             SceneManager.LoadScene(sceneBuildIndex: 0);
+            scene += 1;
+            player.activeScene = scene;
+
         }
     }
 }

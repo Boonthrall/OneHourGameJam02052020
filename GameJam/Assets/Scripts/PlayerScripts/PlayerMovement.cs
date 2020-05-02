@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private float move;
     public float jumpHight = 5;
+    public int activeScene = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +41,18 @@ public class PlayerMovement : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpHight), ForceMode2D.Impulse);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Pit")
+        {
+            die();
+        }
+    }
+
+    private void die()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: activeScene);
     }
 }
